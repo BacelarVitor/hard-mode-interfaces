@@ -14,14 +14,14 @@ func main() {
 		os.Exit(1)
 	}
 	
-	file, err := os.Open(fp)
+	f, err := os.Open(fp)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	defer file.Close()
+	defer f.Close()
 	
-	printContent(file)
+	io.Copy(os.Stdout, f)
 }
 
 func getFilePath(args []string) (string, error) {
@@ -30,9 +30,4 @@ func getFilePath(args []string) (string, error) {
 	}
 
 	return "", errors.New("A file path most be provided")
-}
-
-func printContent(file *os.File) {
-	io.Copy(os.Stdout, file)
-	fmt.Println(file)
 }
