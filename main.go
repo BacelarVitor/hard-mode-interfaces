@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -12,8 +13,14 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
-	fmt.Println(fp)
+	
+	file, err := os.Open(fp)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	io.Copy(os.Stdout, file)
+	fmt.Println(file)
 }
 
 func getFilePath(args []string) (string, error) {
@@ -23,3 +30,4 @@ func getFilePath(args []string) (string, error) {
 
 	return "", errors.New("A file path most be provided")
 }
+
