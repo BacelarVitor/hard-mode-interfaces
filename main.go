@@ -21,6 +21,7 @@ func main() {
 	}
 	defer file.Close()
 	
+	printContent(file)
 }
 
 func getFilePath(args []string) (string, error) {
