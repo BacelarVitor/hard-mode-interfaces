@@ -19,8 +19,8 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	io.Copy(os.Stdout, file)
-	fmt.Println(file)
+	defer file.Close()
+	
 }
 
 func getFilePath(args []string) (string, error) {
@@ -31,3 +31,7 @@ func getFilePath(args []string) (string, error) {
 	return "", errors.New("A file path most be provided")
 }
 
+func printContent(file *os.File) {
+	io.Copy(os.Stdout, file)
+	fmt.Println(file)
+}
